@@ -3,6 +3,22 @@
   margin: 0;
 }
 
+/* Holds the chart's programmatic description (role="img") without taking any
+   visible space, so the decorative bars stay aria-hidden and the surrounding
+   visible text is never collapsed into one image. */
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 .bars {
   box-sizing: border-box;
   display: flex;

@@ -25,9 +25,11 @@ function toWidth(share: number): string {
  * It always lists every bundled region regardless of which one is selected and
  * marks the selected one with text (never colour alone), so a reader who cannot
  * see the bars still knows which region the dashboard is showing. Each bar is a
- * CSS bar whose width is the region's revenue share, giving the view a
- * `role="img"` text alternative, and every region's revenue and share is
- * repeated in a table inside an `overflow-x: auto` wrapper.
+ * CSS bar whose width is the region's revenue share; the bars are purely
+ * decorative (`aria-hidden`), so they never swallow the visible region names
+ * and values into one image. The split's programmatic description sits on its
+ * own visually hidden `role="img"` element, and every region's revenue and
+ * share is repeated in a table inside an `overflow-x: auto` wrapper.
  *
  * It is a pure function of its props and holds no state.
  */
@@ -55,7 +57,12 @@ export default function RegionalSplitChart({
 
   return (
     <figure className={styles.figure}>
-      <div className={styles.bars} role="img" aria-label={summary}>
+      <span
+        className={styles.visuallyHidden}
+        role="img"
+        aria-label={summary}
+      />
+      <div className={styles.bars} aria-hidden="true">
         {entries.map((entry) => {
           const isSelected = entry.region === selectedRegionId;
           return (

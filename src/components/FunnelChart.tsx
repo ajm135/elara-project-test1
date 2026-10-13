@@ -28,11 +28,12 @@ function toWidth(rate: number): string {
  * Presentational conversion funnel for one region.
  *
  * Each stage is a CSS bar whose width is the stage's conversion ratio, so the
- * funnel redraws whenever the selected region changes. The bars carry a
- * `role="img"` text alternative summarising the funnel, and every stage's
- * count and rate is repeated in a real table inside an `overflow-x: auto`
- * wrapper. State is not signalled by colour alone: the value text sits beside
- * every bar.
+ * funnel redraws whenever the selected region changes. The bars are purely
+ * decorative (`aria-hidden`), so they never swallow the visible stage names
+ * and values into one image. The funnel's programmatic description sits on its
+ * own visually hidden `role="img"` element, and every stage's count and rate is
+ * repeated in a real table inside an `overflow-x: auto` wrapper. State is not
+ * signalled by colour alone: the value text sits beside every bar.
  *
  * It is a pure function of its props and holds no state.
  */
@@ -49,7 +50,12 @@ export default function FunnelChart({ funnel, regionLabel }: FunnelChartProps) {
 
   return (
     <figure className={styles.figure}>
-      <div className={styles.bars} role="img" aria-label={summary}>
+      <span
+        className={styles.visuallyHidden}
+        role="img"
+        aria-label={summary}
+      />
+      <div className={styles.bars} aria-hidden="true">
         {steps.map((step) => (
           <div key={step.stage} className={styles.row}>
             <span className={styles.stage}>{step.stage}</span>

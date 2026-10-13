@@ -81,3 +81,12 @@ browser without extra CSS or JavaScript to load.
   than inherit one now.
 * Every chart must keep its text alternative and its text copy of the numbers
   when it changes, because colour and bars alone are not accessible.
+* Milestone 5 refined the text-alternative pattern for the two CSS-bar charts
+  (`FunnelChart`, `RegionalSplitChart`). The `role="img"`/`aria-label` summary
+  moved off the bar container onto its own visually hidden element, and the
+  decorative bar rows are now `aria-hidden="true"`. This keeps a programmatic
+  description for each chart without collapsing the visible stage and region
+  names and their values into a single image for assistive tech. Each chart
+  still repeats its numbers in a real table with its `<caption>`, and
+  `RevenueTrendChart` keeps its `<svg role="img" aria-label>` because its SVG
+  holds no visible text.
